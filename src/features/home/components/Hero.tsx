@@ -135,7 +135,7 @@ export default function Hero() {
       </div>
 
       {/* Right Stats Section */}
-      <div className="w-full lg:w-[30%] bg-[#F6F6F6] flex flex-col justify-center py-8 sm:py-12 lg:p-16 relative flex-1">
+      <div className="w-full lg:w-[30%] bg-[#F6F6F6] flex flex-col justify-center py-12 px-8 sm:px-12 lg:p-16 relative flex-1">
         <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-8 sm:gap-y-12">
           {statistics.map((stat, idx) => (
             <motion.div
@@ -144,9 +144,9 @@ export default function Hero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="flex flex-col"
+              className="flex flex-col items-center lg:items-start"
             >
-              <div className="flex items-baseline gap-1">
+              <div className="flex items-baseline gap-1 justify-center lg:justify-start">
                 <span className="text-4xl md:text-5xl font-light text-[#C5A059]">
                   <Counter value={stat.value} isFormatted={stat.isFormatted} />
                 </span>
@@ -156,7 +156,7 @@ export default function Hero() {
                   </span>
                 )}
               </div>
-              <span className="text-gray-500 text-xs md:text-sm mt-2 uppercase tracking-wider font-medium">
+              <span className="text-gray-500 text-xs md:text-sm mt-2 uppercase tracking-wider font-medium text-center lg:text-left">
                 {stat.label}
               </span>
             </motion.div>
@@ -184,7 +184,7 @@ export default function Hero() {
           </div>
 
           {/* Static Title Overlay */}
-          <div className="absolute inset-0 flex flex-col items-center md:items-start md:left-4 justify-center pointer-events-none">
+          <div className="absolute inset-0 flex flex-col items-center md:items-start md:left-4 justify-center -top-20 lg:top-0 pointer-events-none">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -197,7 +197,7 @@ export default function Hero() {
           </div>
 
           {/* Slider Controls & Counter */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 md:left-4 md:translate-x-0 md:bottom-20 flex justify-center md:justify-start items-center gap-6 md:gap-12 pointer-events-auto w-full md:w-auto">
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 md:left-4 md:translate-x-0 md:bottom-20 flex justify-center md:justify-start items-center gap-6 md:gap-12 pointer-events-auto w-full md:w-auto">
             <button
               onClick={(e) => {
                 e.stopPropagation();

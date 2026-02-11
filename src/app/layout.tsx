@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   description:
     "سيتي إيدج للتطوير العقاري هي شركة رائدة في مجال التطوير العقاري في مصر، تقدم مشروعات سكنية وتجارية فاخرة في أرقى المواقع مثل العلمين الجديدة، القاهرة الجديدة، والشيخ زايد.",
   icons: {
-    icon: "/fav-icon.png",
-    shortcut: "/fav-icon.png",
-    apple: "/fav-icon.png",
+    icon: "/fav-icon.svg",
+    shortcut: "/fav-icon.svg",
+    apple: "/fav-icon.svg",
     other: {
       rel: "apple-touch-icon-precomposed",
-      url: "/fav-icon.png",
+      url: "/fav-icon.svg",
     },
   },
   keywords: [
