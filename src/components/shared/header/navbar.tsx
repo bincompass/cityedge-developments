@@ -4,7 +4,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Phone, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -21,11 +21,10 @@ import {
 import { Button } from "@/components/ui/button";
 
 export const navLinks = [
-  { title: "PROJECTS", href: "/", scrollTo: "projects" },
-  { title: "PROPERTIES", href: "/", scrollTo: "properties" },
-  { title: "ABOUT US", href: "/", scrollTo: "about-us" },
-  { title: "OUR LEGACY", href: "/", scrollTo: "stats" },
-  { title: "CONTACT", href: "/", scrollTo: "register-interest" },
+  { title: "Home", href: "/", scrollTo: "hero" },
+  { title: "Destinations", href: "/", scrollTo: "destinations" },
+  { title: "Portfolio", href: "/", scrollTo: "portfolio" },
+  { title: "Contact Us", href: "/", scrollTo: "register-interest" },
 ];
 
 const handleSmoothScroll = (
@@ -45,7 +44,34 @@ export default function Navbar({ className }: { className?: string }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
   const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+
+  useEffect(() => {
+    if (!isHomePage) return;
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 100; // Offset for header
+
+      for (const link of navLinks) {
+        if (!link.scrollTo) continue;
+        const element = document.getElementById(link.scrollTo);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(link.scrollTo);
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePage]);
 
   return (
     <>
@@ -63,7 +89,15 @@ export default function Navbar({ className }: { className?: string }) {
                     }
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "h-8 px-2 xl:px-3 text-[10px] xl:text-[12px] font-bold transition-all hover:bg-primary hover:text-white rounded-full bg-transparent text-foreground border-none shadow-none focus:bg-primary focus:text-white uppercase tracking-tight",
+                      "h-8 px-2 xl:px-3 text-[10px] xl:text-[12px] transition-all rounded-full bg-transparent border-none shadow-none capitalize tracking-tight",
+                      (
+                        isHomePage
+                          ? activeSection === link.scrollTo
+                          : pathname === link.href
+                      )
+                        ? "text-primary font-bold"
+                        : "text-foreground font-medium",
+                      "hover:text-primary hover:font-bold hover:bg-transparent focus:text-primary focus:font-bold focus:bg-transparent",
                     )}
                   >
                     {link.title}
@@ -79,7 +113,7 @@ export default function Navbar({ className }: { className?: string }) {
       <div className="flex items-center gap-4">
         <a
           href={`tel:${phoneNumber}`}
-          className="hidden lg:flex items-center gap-2 h-8 px-2 xl:px-3 text-[10px] xl:text-[12px] font-bold transition-all hover:bg-primary hover:text-white rounded-full bg-transparent text-foreground focus:bg-primary focus:text-white uppercase tracking-tight"
+          className="hidden lg:flex items-center gap-2 h-8 px-2 xl:px-3 text-[10px] xl:text-[12px] font-medium transition-all hover:text-primary hover:font-bold hover:bg-transparent rounded-full bg-transparent text-foreground focus:text-primary focus:font-bold focus:bg-transparent capitalize tracking-tight"
         >
           <Phone className="h-3 w-3 xl:h-4 xl:w-4" />
           <span>{phoneNumber}</span>
@@ -94,7 +128,7 @@ export default function Navbar({ className }: { className?: string }) {
             </Button>
           </SheetTrigger>
           <SheetContent
-            side="right"
+            side="left"
             className="w-[300px] sm:w-[400px] p-8 transition-transform duration-300 ease-in-out overflow-y-auto"
           >
             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
@@ -107,7 +141,17 @@ export default function Navbar({ className }: { className?: string }) {
                     if (isHomePage) handleSmoothScroll(e, link.scrollTo);
                     setOpen(false);
                   }}
-                  className="block text-base font-semibold text-foreground hover:text-primary transition-colors uppercase tracking-wide py-3"
+                  className={cn(
+                    "block text-base transition-colors capitalize tracking-wide py-3",
+                    (
+                      isHomePage
+                        ? activeSection === link.scrollTo
+                        : pathname === link.href
+                    )
+                      ? "text-primary font-bold"
+                      : "text-foreground font-semibold",
+                    "hover:text-primary hover:font-bold",
+                  )}
                 >
                   {link.title}
                 </Link>

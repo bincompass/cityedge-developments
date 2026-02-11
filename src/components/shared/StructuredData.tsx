@@ -4,27 +4,17 @@ export default function StructuredData() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "شركة النيل للتطوير العقاري",
-    alternateName: "Nile Developments",
+    name: "سيتي إيدج للتطوير العقاري",
+    alternateName: "City Edge Developments",
     url: baseUrl,
     logo: `${baseUrl}/assets/images/logos/main-logo.svg`,
     description:
-      "نايل للتطوير العقاري هي شركة مساهمة مصرية ومقيدة بالبورصة وهيئة الاستثمار أسست بواسطة المهندس محمد طاهر و الأستاذ محمود طاهر.",
-    "foundingDate": "2002",
-    "founder": [
-      {
-        "@type": "Person",
-        "name": "المهندس محمد طاهر"
-      },
-      {
-        "@type": "Person",
-        "name": "الأستاذ محمود طاهر"
-      }
-    ],
+      "سيتي إيدج للتطوير العقاري هي المطور العقاري الوطني لمشروعات سكنية وتجارية وإدارية متميزة في مصر.",
+    foundingDate: "2017",
     sameAs: [
-      "https://www.facebook.com/niledevelopmentseg",
-      "https://www.instagram.com/niledevelopmentseg",
-      "https://www.linkedin.com/company/nile-developments",
+      "https://www.facebook.com/cityedgedevelopments",
+      "https://www.instagram.com/cityedgedevelopments",
+      "https://www.linkedin.com/company/city-edge-developments",
     ],
     address: {
       "@type": "PostalAddress",
@@ -36,9 +26,9 @@ export default function StructuredData() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "شركة النيل للتطوير العقاري",
-    "url": baseUrl,
-    "description": "رواد ناطحات السحاب في مصر",
+    name: "سيتي إيدج للتطوير العقاري",
+    url: baseUrl,
+    description: "المطور العقاري الوطني في مصر",
     potentialAction: {
       "@type": "SearchAction",
       target: `${baseUrl}/?s={search_term_string}`,
@@ -49,56 +39,64 @@ export default function StructuredData() {
   const realEstateSchema = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
-    name: "شركة النيل للتطوير العقاري",
+    name: "سيتي إيدج للتطوير العقاري",
     url: baseUrl,
     logo: `${baseUrl}/assets/images/logos/main-logo.svg`,
     description:
-      "شركة رائدة في التطوير العقاري في العاصمة الإدارية الجديدة والقاهرة الجديدة والمنصورة",
-    "areaServed": [
+      "شركة رائدة في التطوير العقاري في العلمين الجديدة والقاهرة الجديدة والشيخ زايد والمنصورة الجديدة",
+    areaServed: [
       {
         "@type": "City",
-        "name": "العاصمة الإدارية الجديدة"
+        name: "العلمين الجديدة",
       },
       {
         "@type": "City",
-        "name": "القاهرة الجديدة"
+        name: "القاهرة الجديدة",
       },
       {
         "@type": "City",
-        "name": "المنصورة"
-      }
-    ]
+        name: "الشيخ زايد",
+      },
+      {
+        "@type": "City",
+        name: "المنصورة الجديدة",
+      },
+      {
+        "@type": "City",
+        name: "العاصمة الإدارية الجديدة",
+      },
+    ],
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "الرئيسية",
-        "item": baseUrl
+        position: 1,
+        name: "الرئيسية",
+        item: baseUrl,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "من نحن",
-        "item": `${baseUrl}/#about-us`
+        position: 2,
+        name: "من نحن",
+        item: `${baseUrl}/#about-us`,
       },
       {
         "@type": "ListItem",
-        "position": 3,
-        "name": "مشاريعنا",
-        "item": `${baseUrl}/#projects`
+        position: 3,
+        name: "مشاريعنا",
+        item: `${baseUrl}/#projects`,
       },
       {
         "@type": "ListItem",
-        "position": 4,
-        "name": "العقارات",
-        "item": `${baseUrl}/#properties`
-      }
-    ]
+        position: 4,
+        name: "العقارات",
+        item: `${baseUrl}/#properties`,
+      },
+    ],
   };
 
   return (

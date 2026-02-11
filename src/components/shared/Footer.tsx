@@ -3,33 +3,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Phone,
-  Video,
-  MessageCircle,
-  Facebook,
-  Instagram,
-  Youtube,
-  Linkedin,
-} from "lucide-react";
+import { Phone, Video, MessageCircle } from "lucide-react";
 
 const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
 
 const footerLinks = {
   links: [
-    { name: "About Us", href: "/", scrollTo: "about-us" },
-    { name: "Our Legacy", href: "/", scrollTo: "stats" },
-    { name: "Contact", href: "/", scrollTo: "register-interest" },
+    { name: "Home", href: "/", scrollTo: "hero" },
+    { name: "Destinations", href: "/", scrollTo: "destinations" },
+    { name: "Portfolio", href: "/", scrollTo: "portfolio" },
+    { name: "Register Interest", href: "/", scrollTo: "register-interest" },
   ],
   projects: [
-    { name: "Tycoon Tower", href: "/", scrollTo: "projects" },
-    { name: "Nile Boulevard", href: "/", scrollTo: "projects" },
-    { name: "Nile Business City", href: "/", scrollTo: "projects" },
-    {
-      name: "31 North Tower - The New Capital",
-      href: "/",
-      scrollTo: "projects",
-    },
+    { name: "Mazarine Hub", href: "/", scrollTo: "portfolio" },
+    { name: "Mazarine Boulevard", href: "/", scrollTo: "portfolio" },
+    { name: "Mamsha Vista", href: "/", scrollTo: "portfolio" },
+    { name: "Jade Park", href: "/", scrollTo: "portfolio" },
+    { name: "Maspero Mall", href: "/", scrollTo: "portfolio" },
+    { name: "Maspero Nile Heights", href: "/", scrollTo: "portfolio" },
+    { name: "Maspero Business Towers", href: "/", scrollTo: "portfolio" },
+    { name: "V40", href: "/", scrollTo: "portfolio" },
   ],
   contact: [
     { name: phoneNumber, href: `tel:${phoneNumber}`, icon: Phone },
@@ -43,18 +36,6 @@ const footerLinks = {
       name: "Contact via WhatsApp",
       href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`,
       icon: MessageCircle,
-    },
-  ],
-  socials: [
-    { icon: Facebook, href: "https://www.facebook.com/NileDevelopments/" },
-    { icon: Instagram, href: "https://www.instagram.com/nile.developments/" },
-    {
-      icon: Youtube,
-      href: "https://www.youtube.com/channel/UCYYiCSUHU8GVWtj0_pOwZdQ",
-    },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/company/nile-developments/",
     },
   ],
 };
@@ -85,7 +66,7 @@ export default function Footer() {
             <Link href="/" className="block">
               <Image
                 src="/assets/images/logos/main-logo.svg"
-                alt="Nile Developments Logo"
+                alt="Cityedge Developments Logo"
                 width={180}
                 height={70}
                 className="h-14 w-auto brightness-0 invert"
@@ -168,22 +149,10 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-xs text-gray-500 font-light text-center md:text-left">
-            © 2026 Nile Developments - Privacy policy Carefully crafted by{" "}
+          <p className="text-xs text-gray-500 font-light text-center mx-auto">
+            © 2026 Cityedge Dvelopments - Privacy policy Carefully crafted by{" "}
             <span className="text-white">Right Mind ©</span>
           </p>
-
-          <div className="flex items-center gap-6">
-            {footerLinks.socials.map((social, index) => (
-              <a
-                key={index}
-                href={social.href}
-                className="text-gray-400 hover:text-white transition-all hover:scale-110"
-              >
-                <social.icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
         </div>
       </div>
     </footer>

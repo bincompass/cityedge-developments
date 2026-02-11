@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/header";
 import Footer from "@/components/shared/Footer";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 import StructuredData from "@/components/shared/StructuredData";
 
-const roboto = Roboto({
-  variable: "--font-roboto",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "شركة النيل للتطوير العقاري | رواد ناطحات السحاب",
+  title: "سيتي إيدج للتطوير العقاري | المطور العقاري الوطني",
   description:
-    "نايل للتطوير العقاري هي شركة مساهمة مصرية ومقيدة بالبورصة وهيئة الاستثمار أسست بواسطة المهندس محمد طاهر و الأستاذ محمود طاهر.",
+    "سيتي إيدج للتطوير العقاري هي شركة رائدة في مجال التطوير العقاري في مصر، تقدم مشروعات سكنية وتجارية فاخرة في أرقى المواقع مثل العلمين الجديدة، القاهرة الجديدة، والشيخ زايد.",
   icons: {
     icon: "/fav-icon.png",
     shortcut: "/fav-icon.png",
@@ -26,27 +26,30 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "نايل للتطوير العقاري",
-    "شركة نايل",
-    "العقارات المصرية",
-    "ناطحات السحاب مصر",
-    "العاصمة الإدارية الجديدة",
+    "سيتي إيدج للتطوير العقاري",
+    "شركة سيتي إيدج",
+    "City Edge Developments",
+    "عقارات مصر",
+    "العلمين الجديدة",
+    "أبراج العلمين",
+    "مشروع المقصد",
+    "مشروع إيتابا",
     "القاهرة الجديدة",
-    "المنصورة",
+    "الشيخ زايد",
+    "المنصورة الجديدة",
     "مطور عقاري",
-    "برج تايكون",
-    "31 نورث تاور",
-    "نايل بيزنس سيتي",
-    "نايل بوليفارد",
-    "الأبراج التجارية مصر",
-    "المجمعات السكنية مصر",
-    "Nile Developments",
+    "خدمات الصيانة سيتي إيدج",
+    "حجز دخول الشاطئ العلمين",
+    "North Edge Towers",
+    "The Gate Towers",
+    "Mazarine New Alamein",
+    "Etapa Sheikh Zayed",
+    "Al Maqsad New Capital",
     "Egyptian real estate",
-    "New Administrative Capital",
   ],
-  authors: [{ name: "Nile Developments" }],
-  creator: "Nile Developments",
-  publisher: "Nile Developments",
+  authors: [{ name: "City Edge Developments" }],
+  creator: "City Edge Developments",
+  publisher: "City Edge Developments",
   formatDetection: {
     email: false,
     address: false,
@@ -57,11 +60,11 @@ export const metadata: Metadata = {
     canonical: process.env.NEXT_PUBLIC_SITE_URL,
   },
   openGraph: {
-    title: "شركة النيل للتطوير العقاري | رواد ناطحات السحاب",
+    title: "سيتي إيدج للتطوير العقاري | المطور العقاري الوطني",
     description:
-      "نايل للتطوير العقاري هي شركة مساهمة مصرية ومقيدة بالبورصة وهيئة الاستثمار أسست بواسطة المهندس محمد طاهر و الأستاذ محمود طاهر.",
+      "سيتي إيدج للتطوير العقاري هي شركة رائدة في مجال التطوير العقاري في مصر، تقدم مشروعات سكنية وتجارية فاخرة في أرقى المواقع.",
     url: process.env.NEXT_PUBLIC_SITE_URL,
-    siteName: "Nile Developments",
+    siteName: "City Edge Developments",
     locale: "ar_AR",
     type: "website",
     images: [
@@ -69,15 +72,15 @@ export const metadata: Metadata = {
         url: "/assets/images/heros/hero.jpg",
         width: 1200,
         height: 630,
-        alt: "شركة نايل للتطوير العقاري - رائدة ناطحات السحاب",
+        alt: "سيتي إيدج للتطوير العقاري - المطور العقاري الوطني",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "شركة النيل للتطوير العقاري | رواد ناطحات السحاب",
+    title: "سيتي إيدج للتطوير العقاري | المطور العقاري الوطني",
     description:
-      "نايل للتطوير العقاري هي شركة مساهمة مصرية ومقيدة بالبورصة وهيئة الاستثمار أسست بواسطة المهندس محمد طاهر و الأستاذ محمود طاهر.",
+      "سيتي إيدج للتطوير العقاري هي شركة رائدة في مجال التطوير العقاري في مصر، تقدم مشروعات سكنية وتجارية فاخرة.",
     images: ["/assets/images/heros/hero.jpg"],
   },
   robots: {
@@ -115,7 +118,7 @@ export default function RootLayout({
           `}</style>
         </noscript>
       </head>
-      <body className={`${roboto.variable} antialiased font-sans`}>
+      <body className={`${manrope.variable} antialiased font-sans`}>
         <StructuredData />
         <Header />
         {children}

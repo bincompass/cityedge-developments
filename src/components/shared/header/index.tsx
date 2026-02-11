@@ -10,10 +10,9 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/assets/images/logos/main-logo.svg"
-            alt="Nile Developments Logo"
-            width={150}
-            height={60}
-            className="h-12 w-auto"
+            alt="Cityedge Developments Logo"
+            width={45}
+            height={45}
             priority
           />
         </Link>

@@ -1,5 +1,5 @@
 {
-  "name": "nile-developments",
+  "name": "cityedge-developments",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.27.5",
+    "keen-slider": "^6.8.6",
     "lucide-react": "^0.562.0",
     "next": "16.1.4",
     "react": "19.2.3",

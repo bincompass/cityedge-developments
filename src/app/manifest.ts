@@ -2,13 +2,13 @@ import { MetadataRoute } from 'next'
  
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'شركة النيل للتطوير العقاري | رواد ناطحات السحاب',
-    short_name: 'نايل للتطوير العقاري',
-    description: 'نايل للتطوير العقاري هي شركة مساهمة مصرية ومقيدة بالبورصة وهيئة الاستثمار أسست بواسطة المهندس محمد طاهر و الأستاذ محمود طاهر.',
+    name: 'سيتي إيدج للتطوير العقاري | المطور العقاري الوطني',
+    short_name: 'سيتي إيدج',
+    description: 'سيتي إيدج للتطوير العقاري هي المطور العقاري الوطني لمشروعات سكنية وتجارية وإدارية متميزة في مصر.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#91724a',
+    theme_color: '#1a2b4b',
     icons: [
       {
         src: '/assets/images/logos/main-logo.svg',

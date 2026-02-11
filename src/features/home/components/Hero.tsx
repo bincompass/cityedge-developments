@@ -1,107 +1,233 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Info, Headset } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView, useMotionValue, animate } from "framer-motion";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+
+const sliderImages = [
+  { id: 1, src: "/assets/images/properties/1.webp" },
+  { id: 2, src: "/assets/images/properties/2.webp" },
+  { id: 3, src: "/assets/images/properties/3.webp" },
+  { id: 4, src: "/assets/images/properties/4.webp" },
+  { id: 5, src: "/assets/images/properties/5.webp" },
+  { id: 6, src: "/assets/images/properties/6.webp" },
+  { id: 7, src: "/assets/images/properties/7.webp" },
+  { id: 8, src: "/assets/images/properties/8.webp" },
+];
+
+const statistics = [
+  { label: "Destinations", value: 6, suffix: "" },
+  { label: "Projects", value: 30, suffix: "+" },
+  { label: "Homeowners", value: 25111, suffix: "", isFormatted: true },
+  { label: "Units Delivered", value: 11147, suffix: "", isFormatted: true },
+  { label: "Area Developed", value: 15, suffix: "M Sqm" },
+  { label: "Employees", value: 400, suffix: "+" },
+];
+
+function Counter({
+  value,
+  isFormatted,
+}: {
+  value: number;
+  isFormatted?: boolean;
+}) {
+  const [displayValue, setDisplayValue] = useState(isFormatted ? "0" : "0");
+  const count = useMotionValue(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (inView) {
+      const controls = animate(count, value, {
+        duration: 2,
+        ease: "easeOut",
+        onUpdate: (latest) => {
+          const num = Math.round(latest);
+          setDisplayValue(isFormatted ? num.toLocaleString() : num.toString());
+        },
+      });
+      return controls.stop;
+    }
+  }, [inView, value, count, isFormatted]);
+
+  return <span ref={ref}>{displayValue}</span>;
+}
 
 export default function Hero() {
-  const handleScrollTo = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
+    {
+      initial: 0,
+      loop: true,
+      created(s) {
+        setCurrentSlide(s.track.details.rel);
+      },
+      slideChanged(s) {
+        setCurrentSlide(s.track.details.rel);
+      },
+      updated(s) {
+        setCurrentSlide(s.track.details.rel);
+      },
+      animationEnded(s) {
+        setCurrentSlide(s.track.details.rel);
+      },
+    },
+    [
+      (slider) => {
+        let timeout: ReturnType<typeof setTimeout>;
+        let mouseOver = false;
+        function clearNextTimeout() {
+          clearTimeout(timeout);
+        }
+        function nextTimeout() {
+          clearTimeout(timeout);
+          if (mouseOver) return;
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 5000);
+        }
+        slider.on("created", () => {
+          slider.container.addEventListener("mouseover", () => {
+            mouseOver = true;
+            clearNextTimeout();
+          });
+          slider.container.addEventListener("mouseout", () => {
+            mouseOver = false;
+            nextTimeout();
+          });
+          nextTimeout();
+        });
+        slider.on("dragStarted", clearNextTimeout);
+        slider.on("animationEnded", nextTimeout);
+        slider.on("updated", nextTimeout);
+      },
+    ],
+  );
 
   return (
     <section
-      id="home"
-      className="relative h-[90vh] lg:h-[92vh] w-full flex flex-col justify-center items-center overflow-hidden font-sans"
+      id="hero"
+      className="relative w-full h-[calc(100vh-5rem)] flex flex-col lg:flex-row overflow-hidden bg-white"
     >
-      {/* Background Image */}
-      <motion.div
-        initial={{ scale: 1.2, opacity: 0 }}
-        animate={{ scale: 1.1, opacity: 1 }}
-        transition={{ duration: 1.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="absolute inset-0 -z-10 h-full w-full overflow-hidden"
-      >
-        <Image
-          src="/assets/images/heros/hero.jpg"
-          alt="Hero Background"
-          fill
-          priority
-          className="object-cover object-center scale-110"
-        />
-        {/* Sophisticated overlay: subtle base darkening only to ensure full coverage without borders */}
-        <div className="absolute inset-0 bg-black/60 h-full w-full" />
-      </motion.div>
-
-      {/* Central Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-5xl mx-auto mt-20 md:mt-0">
-        <h1 className="flex flex-col items-center">
-          <motion.span
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.3,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight uppercase leading-none"
-          >
-            Where No <br className="md:hidden" /> Competition
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.6,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="text-[#f24e1e] text-6xl sm:text-8xl md:text-8xl lg:text-9xl font-serif italic uppercase leading-[0.8] mt-2 md:mt-4"
-          >
-            Reaches
-          </motion.span>
-        </h1>
+      {/* Left Slider Section */}
+      <div className="relative w-full lg:w-[70%] h-[50vh] sm:h-[60vh] lg:h-full overflow-hidden">
+        <div ref={sliderRef} className="keen-slider h-full w-full">
+          {sliderImages.map((slide, idx) => (
+            <div
+              key={slide.id}
+              className="keen-slider__slide relative h-full w-full"
+            >
+              <Image
+                src={slide.src}
+                alt="City Edge Development"
+                fill
+                priority={idx === 0}
+                className="object-cover"
+              />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/40" />
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Bottom Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
-        className="absolute bottom-12 left-0 right-0 px-6 md:px-20 flex flex-col md:flex-row items-center md:justify-center gap-8 z-10"
-      >
-        {/* Action Buttons Container */}
-        <div className="bg-[#1a1a1a]/80 backdrop-blur-md rounded-full p-2 flex items-center gap-2 border border-white/5 mx-auto md:mx-0">
-          <Button
-            onClick={() => handleScrollTo("about")}
-            variant="ghost"
-            className="hidden md:flex rounded-full text-white hover:bg-white/10 hover:text-white px-5 h-10 items-center gap-3 transition-all duration-300 group cursor-pointer"
-          >
-            <div className="w-7 h-7 rounded-full border border-[#f24e1e]/50 flex items-center justify-center group-hover:border-[#f24e1e] group-hover:bg-[#f24e1e]/10 transition-colors">
-              <Info className="w-4 h-4 text-[#f24e1e]" />
-            </div>
-            <span className="uppercase text-[13px] font-bold tracking-widest">
-              About Us
-            </span>
-          </Button>
-
-          <Button
-            onClick={() => handleScrollTo("contact")}
-            variant="ghost"
-            className="rounded-full text-white hover:bg-white/10 hover:text-white px-5 h-10 flex items-center gap-3 transition-all duration-300 group cursor-pointer"
-          >
-            <div className="w-7 h-7 rounded-full border border-[#f24e1e]/50 flex items-center justify-center group-hover:border-[#f24e1e] group-hover:bg-[#f24e1e]/10 transition-colors">
-              <Headset className="w-4 h-4 text-[#f24e1e]" />
-            </div>
-            <span className="uppercase text-[13px] font-bold tracking-widest">
-              Contact
-            </span>
-          </Button>
+      {/* Right Stats Section */}
+      <div className="w-full lg:w-[30%] bg-[#F6F6F6] flex flex-col justify-center py-8 sm:py-12 lg:p-16 relative flex-1">
+        <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-8 sm:gap-y-12">
+          {statistics.map((stat, idx) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="flex flex-col"
+            >
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl md:text-5xl font-light text-[#C5A059]">
+                  <Counter value={stat.value} isFormatted={stat.isFormatted} />
+                </span>
+                {stat.suffix && (
+                  <span className="text-xl md:text-2xl font-light text-[#C5A059]">
+                    {stat.suffix}
+                  </span>
+                )}
+              </div>
+              <span className="text-gray-500 text-xs md:text-sm mt-2 uppercase tracking-wider font-medium">
+                {stat.label}
+              </span>
+            </motion.div>
+          ))}
         </div>
-      </motion.div>
+      </div>
+
+      {/* Content Container Overlay */}
+      <div className="absolute top-0 left-0 w-full h-[50vh] sm:h-[60vh] lg:h-full pointer-events-none z-30">
+        <div className="container h-full relative">
+          {/* Continuous Top Line Overlay */}
+          <div className="absolute top-[10%] lg:top-[15%] left-4 right-4 md:right-8 hidden lg:flex items-center pointer-events-none">
+            <div className="flex items-center gap-4 w-full">
+              <span className="text-white/80 text-sm md:text-base font-medium tracking-widest whitespace-nowrap min-w-[120px]">
+                We are City Edge
+              </span>
+              <div className="h-px flex-1 bg-white/20" />
+              <div className="flex items-center gap-4 ml-12 lg:ml-24">
+                <div className="h-px w-24 lg:w-48 bg-gray-200" />
+                <span className="text-primary text-sm font-medium uppercase tracking-widest whitespace-nowrap">
+                  our numbers
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Static Title Overlay */}
+          <div className="absolute inset-0 flex flex-col items-center md:items-start md:left-4 justify-center pointer-events-none">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-white text-3xl sm:text-4xl md:text-5xl font-medium max-w-2xl leading-[1.2] tracking-tight text-center md:text-left"
+            >
+              Shaping Egypt&apos;s Future <br /> through Innovative <br /> Real
+              Estate Development
+            </motion.h1>
+          </div>
+
+          {/* Slider Controls & Counter */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 md:left-4 md:translate-x-0 md:bottom-20 flex justify-center md:justify-start items-center gap-6 md:gap-12 pointer-events-auto w-full md:w-auto">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                instanceRef.current?.prev();
+              }}
+              className="text-white hover:text-primary text-[10px] md:text-sm font-medium uppercase tracking-[0.2em] transition-colors cursor-pointer"
+            >
+              Previous
+            </button>
+
+            <div className="text-white text-xl md:text-3xl font-light tracking-tighter flex items-center">
+              <span>{String(currentSlide + 1).padStart(2, "0")}</span>
+              <span className="text-white/30 mx-2 md:mx-3 text-lg md:text-2xl">
+                /
+              </span>
+              <span>{String(sliderImages.length).padStart(2, "0")}</span>
+            </div>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                instanceRef.current?.next();
+              }}
+              className="text-white hover:text-primary text-[10px] md:text-sm font-medium uppercase tracking-[0.2em] transition-colors cursor-pointer"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
