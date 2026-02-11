@@ -150,8 +150,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-xs text-gray-500 font-light text-center mx-auto">
-            © 2026 Cityedge Dvelopments - Privacy policy Carefully crafted by{" "}
-            <span className="text-white">Right Mind ©</span>
+            © 2026 Cityedge Dvelopments
           </p>
         </div>
       </div>
